@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour {
         Vector3 _moveVertical = transform.forward * _zMovement;
 
         //Adding both movement axis together and normalizing them so they only serve for direction
-        //Multiplying the direction by the speed so we can control the movespeed
+        //Multiplying the direction by the speed to control the movespeed
         Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * speed;
 
         //Let the Motor move with the desired calculated velocity
