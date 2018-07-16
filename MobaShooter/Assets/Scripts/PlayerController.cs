@@ -3,9 +3,11 @@
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour {
 
-    [SerializeField]
     //SerializeField makes it editable from the Unity Editor
+    [SerializeField]
     private float speed = 5f;
+    [SerializeField]
+    private float mouseSensitivity = 2.5f;
 
     //Setting a reference to the PlayerMotor
     private PlayerMotor motor;
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() {
 
-    //Calculate movement velocity as Vector3
+        #region Calculate movement velocity as Vector3
 
         //Gets a vetcor based on the input(Keyboard and Controller)
         // W-UP    ( 1, 0, 0)
@@ -37,10 +39,36 @@ public class PlayerController : MonoBehaviour {
         //Multiplying the direction by the speed to control the movespeed
         Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * speed;
 
-        //Let the Motor move with the desired calculated velocity
+        //Let the Motor move with the calculated velocity
         motor.Move(_velocity);
+        
+        #endregion
 
-    //Calculate rotation as a Vector3
+        #region Calculate Horizontal rotation as a Vector3 for turning around
+       
+        //Gets a vector based on the horizontal input of the mouse
+        float _yRotation = Input.GetAxisRaw("Mouse X");
+
+        //Mulitply the vector by the mouseSensitivity variable to make the turnspeed adjustable
+        Vector3 _rotation = new Vector3(0f, _yRotation, 0f) * mouseSensitivity;
+
+        //Let the motor rotate the player by the calculated rotation
+        motor.Rotate(_rotation);
+
+        #endregion
+
+        #region Calculate vertical rotation as a Vector3 for turning the camera up and down
+
+        //Gets a vector based on the horizontal input of the mouse
+        float _xRotation = Input.GetAxisRaw("Mouse Y");
+
+        //Mulitply the vector by the mouseSensitivity variable to make the turnspeed adjustable
+        Vector3 _cameraRotation = new Vector3(_xRotation, 0f, 0f) * mouseSensitivity;
+
+        //Let the motor rotate the player by the calculated rotation
+        motor.RotateCamera(_cameraRotation);
+
+        #endregion
 
     }
 
