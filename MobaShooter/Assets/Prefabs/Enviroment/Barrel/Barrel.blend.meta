@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c42cde1808f74bf44a2187dd1a3d0996
+guid: c14551b7c75b55840a062481672dcda2
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -13,17 +13,7 @@ ModelImporter:
     6400000: //RootNode
     7400000: Default Take
     9500000: //RootNode
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: None__BarrelColor
-    second: {fileID: 2100000, guid: 5d7972a77428e204da8a632c36f1180e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wood__BarrelColor
-    second: {fileID: 2100000, guid: 5d7972a77428e204da8a632c36f1180e, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -79,7 +69,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
