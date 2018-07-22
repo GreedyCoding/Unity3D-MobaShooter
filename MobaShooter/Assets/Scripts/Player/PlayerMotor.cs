@@ -73,7 +73,7 @@ public class PlayerMotor : MonoBehaviour {
 
     #endregion
 
-    #region RotateCamera - RotateCamera(), uses PerformRotation() to rotate;
+    #region Camera Rotation - RotateCamera(), uses PerformRotation() to do the actual rotation;
 
     //Gets a rotation vector
     public void RotateCamera(Vector3 _cameraRotation) {

@@ -5,7 +5,7 @@ public class Target : MonoBehaviour {
     //Target has 50hp
     public float health = 50f;
 
-    //Takedamage gets called from the gun when it hits an object hence its public
+    //TakeDamage gets called from the gun when it hits an object
     public void TakeDamage(float damageAmmount) {
 
         health -= damageAmmount;

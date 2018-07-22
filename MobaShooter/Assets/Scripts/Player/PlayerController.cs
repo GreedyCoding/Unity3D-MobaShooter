@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() {
 
-        #region Calculate movement velocity as Vector3
+    //Calculate movement velocity as Vector3
 
         //Gets a vetcor based on the input(Keyboard and Controller)
         // W-UP    ( 1, 0, 0)
@@ -41,10 +41,8 @@ public class PlayerController : MonoBehaviour {
 
         //Let the Motor move with the calculated velocity
         motor.Move(_velocity);
-        
-        #endregion
 
-        #region Calculate Horizontal rotation as a Vector3 for turning around
+    //Calculate Horizontal rotation as a Vector3 for turning around
        
         //Gets a vector based on the horizontal input of the mouse
         float _yRotation = Input.GetAxisRaw("Mouse X");
@@ -55,9 +53,7 @@ public class PlayerController : MonoBehaviour {
         //Let the motor rotate the player by the calculated rotation
         motor.Rotate(_rotation);
 
-        #endregion
-
-        #region Calculate vertical rotation as a Vector3 for turning the camera up and down
+    //Calculate vertical rotation as a Vector3 for turning the camera up and down
 
         //Gets a vector based on the horizontal input of the mouse
         float _xRotation = Input.GetAxisRaw("Mouse Y");
@@ -65,10 +61,8 @@ public class PlayerController : MonoBehaviour {
         //Mulitply the vector by the mouseSensitivity variable to make the turnspeed adjustable
         Vector3 _cameraRotation = new Vector3(_xRotation, 0f, 0f) * mouseSensitivity;
 
-        //Let the motor rotate the player by the calculated rotation
+        //Let the motor rotate the camera by the calculated rotation
         motor.RotateCamera(_cameraRotation);
-
-        #endregion
 
     }
 
