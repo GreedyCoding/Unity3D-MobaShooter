@@ -4,6 +4,8 @@ public class Gun : MonoBehaviour {
 
     public float damage = 10f;
     public float range = 100f;
+    public float fireRate = 3f;
+    public float impactForce = 2000f;
 
     //Reference to the player camera for the raycasting
     public Camera fpsCam;
@@ -11,12 +13,17 @@ public class Gun : MonoBehaviour {
     public ParticleSystem muzzleFlash;
     //Reference to the impact particle system which gets instantiated as a gameobject
     public GameObject impactAnimation;
+
+    //Stores the time the gun can shoot the next time, 0 so you can instantly shoot
+    private float nextTimeToFire = 0f;
     	
 	void Update () {
 		
-        //If player pressed Mouse Button 1 shoot the gun
-        if (Input.GetButtonDown("Fire1")) {
+        //If player pressed Mouse Button 1 and its already time to fire again, shoot the gun
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
 
+            //Then add the 1/firerate to the current time to calculate the next time to shoot
+            nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
 
         }
@@ -41,6 +48,13 @@ public class Gun : MonoBehaviour {
             if (target != null) {
 
                 target.TakeDamage(damage);
+
+            }
+
+            //If the hit component has a rigidbody we add a force to it
+            if (hit.rigidbody != null) {
+
+                hit.rigidbody.AddForce(-hit.normal * impactForce);
 
             }
 

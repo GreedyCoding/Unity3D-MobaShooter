@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float speed = 5f;
     [SerializeField]
-    private float mouseSensitivity = 2.5f;
+    private float mouseSensitivity = 5f;
 
     //Setting a reference to the PlayerMotor
     private PlayerMotor motor;
