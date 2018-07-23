@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 251164626}
   - component: {fileID: 251164625}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: Camera and Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1885,10 +1885,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07b61e8d41fe0149bbcd675fe867588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 10
   range: 1000
   fireRate: 3
-  impactForce: 2000
+  impactForce: 500
   fpsCam: {fileID: 251164627}
   muzzleFlash: {fileID: 73792576}
   impactAnimation: {fileID: 1863692823895574, guid: 50d06c7439e77f349b083b8a8b2eaf78,
@@ -2220,7 +2220,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2091693685}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4, y: 1.06, z: 9.61}
+  m_LocalPosition: {x: 4.4, y: 1, z: 9.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1264838068}
@@ -2239,8 +2239,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e7f8c81667b1414c8035a6a85dea2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  mouseSensitivity: 3
+  speed: 6
+  jumpVelocity: 7
+  mouseSensitivity: 2
 --- !u!114 &2091693689
 MonoBehaviour:
   m_ObjectHideFlags: 0

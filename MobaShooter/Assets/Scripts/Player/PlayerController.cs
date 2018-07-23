@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(PlayerMotor))]
+
 public class PlayerController : MonoBehaviour {
 
-    //SerializeField makes it editable from the Unity Editor
-    [SerializeField]
+    [SerializeField][Range(1f, 10f)]
     private float speed = 5f;
-    [SerializeField]
+
+    [SerializeField][Range(1f, 10f)]
+    private float jumpVelocity = 5f;
+
+    [SerializeField][Range(0.01f, 15f)]
     private float mouseSensitivity = 5f;
 
     //Setting a reference to the PlayerMotor
@@ -34,6 +38,9 @@ public class PlayerController : MonoBehaviour {
         //transform.right/forward takes the current rotation into consideration
         Vector3 _moveHorizontal = transform.right * _xMovement;
         Vector3 _moveVertical = transform.forward * _zMovement;
+
+        //Vector for jumping pointing up multiplied by the jumpVelocity
+        Vector3 _jumpVector = Vector3.up * jumpVelocity;
 
         //Adding both movement axis together and normalizing them so they only serve for direction
         //Multiplying the direction by the speed to control the movespeed
@@ -63,6 +70,16 @@ public class PlayerController : MonoBehaviour {
 
         //Let the motor rotate the camera by the calculated rotation
         motor.RotateCamera(_cameraRotation);
+
+    //Jump when player presses the space key
+
+        //If the space key is pressed and the player is below 1,1m he can jump 
+        if (Input.GetButtonDown("Jump")) {
+
+            //we set the velocity of the rigid
+            motor.Jump(_jumpVector);
+
+        }
 
     }
 
