@@ -23,8 +23,22 @@ public class Gun : MonoBehaviour {
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
 
             //Then add the 1/firerate to the current time to calculate the next time to shoot
-            nextTimeToFire = Time.time + 1f / fireRate;
+            nextTimeToFire = Time.time + (1f / fireRate);
             Shoot();
+
+        }
+
+        if (Input.GetButton("Fire2") && Time.time >= nextTimeToFire) {
+
+            nextTimeToFire = Time.time + (1f / fireRate);
+
+            for (int i = 0; i < 3; i++) {
+
+                Shoot();
+
+            }
+
+            
 
         }
 
@@ -32,7 +46,7 @@ public class Gun : MonoBehaviour {
 
     void Shoot() {
         
-        //Raycast variavle that will hold the information about the positon the ray hits
+        //Raycast variable that will hold the information about the positon the ray hits
         RaycastHit hit;
 
         //Every time we shoot we display the muzzle flash animation
@@ -41,7 +55,7 @@ public class Gun : MonoBehaviour {
         //Shoot a ray from the camera postion straight forward and store the hitinfo in the hit variable
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
 
-            //If the ray hit something we get the Target component if it exists
+            //If the ray hit something and the Target component exists we store thsi component in the targe var
             Target target = hit.transform.GetComponent<Target>();
 
             //If there is a target component we let the target take damage
@@ -60,8 +74,8 @@ public class Gun : MonoBehaviour {
 
             //Every time we hit something we instantiate a particle system pointing out from the impact point
             GameObject impactAnimationGO = Instantiate(impactAnimation, hit.point, Quaternion.LookRotation(hit.normal));
-            //Destroy the GameObject after 2 seconds
-            Destroy(impactAnimationGO, 2f);
+            //Destroy the GameObject after 1 seconds
+            Destroy(impactAnimationGO, 1f);
 
 
         }

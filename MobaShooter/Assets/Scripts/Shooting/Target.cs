@@ -19,7 +19,7 @@ public class Target : MonoBehaviour {
 
     void Die() {
 
-        //Die just destroys the gameobject the script is called on
+        //Die just destroys the gameobject the script is called on for now
         Destroy(gameObject);
 
     }
