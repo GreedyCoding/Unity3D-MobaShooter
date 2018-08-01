@@ -2979,7 +2979,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4262076069942730, guid: 5c46f3b1bed57584d817ee1d41ac4395, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198868637734033662, guid: 5c46f3b1bed57584d817ee1d41ac4395,
         type: 2}
@@ -3374,11 +3374,13 @@ MonoBehaviour:
   damage: 10
   range: 1000
   fireRate: 3
-  impactForce: 500
+  impactForce: 50
   fpsCam: {fileID: 2080398584}
   muzzleFlash: {fileID: 73792576}
   impactAnimation: {fileID: 1863692823895574, guid: 50d06c7439e77f349b083b8a8b2eaf78,
     type: 2}
+  rocket: {fileID: 1751109263870406, guid: c5b9e50862ff44a41b7eaf445b2255b0, type: 2}
+  rocketCooldown: 1
 --- !u!1 &1612501538
 GameObject:
   m_ObjectHideFlags: 0

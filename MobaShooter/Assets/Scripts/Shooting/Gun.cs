@@ -13,32 +13,38 @@ public class Gun : MonoBehaviour {
     public ParticleSystem muzzleFlash;
     //Reference to the impact particle system which gets instantiated as a gameobject
     public GameObject impactAnimation;
+    //Reference to the rocket we are shooting as alternate fire
+    public GameObject rocket;
 
     //Stores the time the gun can shoot the next time, 0 so you can instantly shoot
-    private float nextTimeToFire = 0f;
-    	
-	void Update () {
+    private float nextTimeToShoot = 0f;
+
+    //Next time to shoot a rocket
+    private float nextTimeToRocket = 0f;
+    //Rocket Cooldown
+    public float rocketCooldown = 6f;
+    //Rocket Prefab is rotated around the x axis we rotate it by this value so it is facing away from the player
+    private Vector3 rocketRotation = new Vector3(90f, 0f, 0f);
+
+
+    void Update () {
 		
         //If player pressed Mouse Button 1 and its already time to fire again, shoot the gun
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire) {
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToShoot) {
 
             //Then add the 1/firerate to the current time to calculate the next time to shoot
-            nextTimeToFire = Time.time + (1f / fireRate);
+            nextTimeToShoot = Time.time + (1f / fireRate);
             Shoot();
 
         }
 
-        if (Input.GetButton("Fire2") && Time.time >= nextTimeToFire) {
+        //If player pressed Mouse Button 2 and its already time to shoot a rocket again, shoot it
+        if (Input.GetButton("Fire2") && Time.time >= nextTimeToRocket) {
 
-            nextTimeToFire = Time.time + (1f / fireRate);
-
-            for (int i = 0; i < 3; i++) {
-
-                Shoot();
-
-            }
-
-            
+            //Add the rocketcooldown to the current time to calculate the next time to fire a rocket
+            nextTimeToRocket = Time.time + rocketCooldown;
+            Debug.Log("Shooting a rocket");
+            ShootRocket();
 
         }
 
@@ -72,13 +78,21 @@ public class Gun : MonoBehaviour {
 
             }
 
-            //Every time we hit something we instantiate a particle system pointing out from the impact point
+            //Every time we hit something we instantiate a impact animation pointing out from the impact point
             GameObject impactAnimationGO = Instantiate(impactAnimation, hit.point, Quaternion.LookRotation(hit.normal));
-            //Destroy the GameObject after 1 seconds
+            //Destroy the impact animation GameObject after 1 seconds
             Destroy(impactAnimationGO, 1f);
 
 
         }
+
+    }
+
+    void ShootRocket() {
+
+        muzzleFlash.Play();
+        GameObject rocketGO = Instantiate(rocket, muzzleFlash.transform.position, fpsCam.transform.rotation * Quaternion.Euler(rocketRotation));
+        Destroy(rocketGO, 10f);
 
     }
 
