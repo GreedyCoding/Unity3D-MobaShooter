@@ -15,6 +15,8 @@ public class Gun : MonoBehaviour {
     public GameObject impactAnimation;
     //Reference to the rocket we are shooting as alternate fire
     public GameObject rocket;
+    //Reference to the firepoint
+    public Transform firePoint;
 
     //Stores the time the gun can shoot the next time, 0 so you can instantly shoot
     private float nextTimeToShoot = 0f;
@@ -43,7 +45,6 @@ public class Gun : MonoBehaviour {
 
             //Add the rocketcooldown to the current time to calculate the next time to fire a rocket
             nextTimeToRocket = Time.time + rocketCooldown;
-            Debug.Log("Shooting a rocket");
             ShootRocket();
 
         }
@@ -93,7 +94,7 @@ public class Gun : MonoBehaviour {
         //Play the muzzleFlash animation
         muzzleFlash.Play();
         //Instantiate a rocket (positoion is still buggy)
-        GameObject rocketGO = Instantiate(rocket, muzzleFlash.transform.position, fpsCam.transform.rotation * Quaternion.Euler(rocketOffsetRotation));
+        GameObject rocketGO = Instantiate(rocket, firePoint.position, firePoint.rotation * Quaternion.Euler(rocketOffsetRotation));
         //Call destroy after 10 seconds to clear rockets who may still fly in space
         Destroy(rocketGO, 10f);
 
