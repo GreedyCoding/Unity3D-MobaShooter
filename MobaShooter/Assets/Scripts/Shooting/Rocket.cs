@@ -22,7 +22,9 @@ public class Rocket : MonoBehaviour {
 
     }
 
+    //Every physics iteration we add a force to the rocket
     private void FixedUpdate() {
+
         //Using transform.up Vector for the calculation because the object is rotated around the X axis
         rb.AddForce(transform.up.normalized * speed, ForceMode.VelocityChange);
         
