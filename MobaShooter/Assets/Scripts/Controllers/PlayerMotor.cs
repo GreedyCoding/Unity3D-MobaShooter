@@ -59,6 +59,7 @@ public class PlayerMotor : MonoBehaviour {
         //Performs movement if the velocity vector is not zero
         if (velocity != Vector3.zero) {
 
+            //Multiplying the velocity by Time.fixedDeltaTime cause it gets called every physics iteration
             rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
 
         }
@@ -82,7 +83,7 @@ public class PlayerMotor : MonoBehaviour {
 
         if (rotation != Vector3.zero) {
 
-            //Rigidbody uses quarternion system so we need to convert our angle into a quaternion
+            //Rigidbody uses quarternion system so we need to convert our euler angle into a quaternion
             rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
             //If there is a camera attached to the Player we perfrom camerarotation
             if (cam != null) {
@@ -116,6 +117,7 @@ public class PlayerMotor : MonoBehaviour {
         //If the rigidbody has a velocity lower then 0(the player is falling) we add a multiplier to gravity
         if (rb.velocity.y < 0) {
 
+            //Multiplied by Time.fixedDeltaTime cause this also gets called in every physics iteration
             rb.velocity += Vector3.up * Physics.gravity.y * fallMultiplier * Time.fixedDeltaTime;
 
         }

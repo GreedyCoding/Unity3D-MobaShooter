@@ -24,7 +24,7 @@ public class Gun : MonoBehaviour {
     //Rocket Cooldown
     public float rocketCooldown = 6f;
     //Rocket Prefab is rotated around the x axis we rotate it by this value so it is facing away from the player
-    private Vector3 rocketRotation = new Vector3(90f, 0f, 0f);
+    private Vector3 rocketOffsetRotation = new Vector3(90f, 0f, 0f);
 
 
     void Update () {
@@ -71,7 +71,7 @@ public class Gun : MonoBehaviour {
 
             }
 
-            //If the hit component has a rigidbody we add a force to it
+            //If the hit component has a rigidbody add a force to it
             if (hit.rigidbody != null) {
 
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
@@ -89,9 +89,12 @@ public class Gun : MonoBehaviour {
     }
 
     void ShootRocket() {
-
+        
+        //Play the muzzleFlash animation
         muzzleFlash.Play();
-        GameObject rocketGO = Instantiate(rocket, muzzleFlash.transform.position, fpsCam.transform.rotation * Quaternion.Euler(rocketRotation));
+        //Instantiate a rocket (positoion is still buggy)
+        GameObject rocketGO = Instantiate(rocket, muzzleFlash.transform.position, fpsCam.transform.rotation * Quaternion.Euler(rocketOffsetRotation));
+        //Call destroy after 10 seconds to clear rockets who may still fly in space
         Destroy(rocketGO, 10f);
 
     }
