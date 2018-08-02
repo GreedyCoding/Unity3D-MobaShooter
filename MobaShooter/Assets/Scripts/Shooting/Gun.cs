@@ -90,7 +90,13 @@ public class Gun : MonoBehaviour {
     }
 
     void ShootRocket() {
-        
+
+        RaycastHit hit;
+        //Casting a Raycast from the camera to determine the impact point of the rocket
+        Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range);
+        //Facing the Firepoint to the impact point beacuse we add a force pointing forward
+        firePoint.transform.LookAt(hit.point);
+
         //Play the muzzleFlash animation
         muzzleFlash.Play();
         //Instantiate a rocket (positoion is still buggy)
