@@ -34,8 +34,12 @@ public class Rocket : MonoBehaviour {
     //Checks for collision, is a Unity function
     private void OnCollisionEnter(Collision collision) {
 
-        //If the rocket collides with something we let the rocket explode
-        ExplodeRocket();
+        if (collision.gameObject.name != "Player") {
+
+            //If the rocket collides with something we let the rocket explode
+            ExplodeRocket();
+
+        }
 
     }
 

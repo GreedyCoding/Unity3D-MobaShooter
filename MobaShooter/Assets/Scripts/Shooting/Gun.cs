@@ -3,7 +3,6 @@
 public class Gun : MonoBehaviour {
 
     public float damage = 10f;
-    public float range = 100f;
     public float fireRate = 3f;
     public float impactForce = 2000f;
 
@@ -60,7 +59,7 @@ public class Gun : MonoBehaviour {
         muzzleFlash.Play();
 
         //Shoot a ray from the camera postion straight forward and store the hitinfo in the hit variable
-        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)) {
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit)) {
 
             //If the ray hit something and the Target component exists we store thsi component in the targe var
             Target target = hit.transform.GetComponent<Target>();
@@ -93,9 +92,12 @@ public class Gun : MonoBehaviour {
 
         RaycastHit hit;
         //Casting a Raycast from the camera to determine the impact point of the rocket
-        Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range);
+        Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit);
         //Facing the Firepoint to the impact point beacuse we add a force pointing forward
         firePoint.transform.LookAt(hit.point);
+        Debug.Log(firePoint.transform.rotation.x);
+        Debug.Log(firePoint.transform.rotation.y);
+        Debug.Log(firePoint.transform.rotation.z);
 
         //Play the muzzleFlash animation
         muzzleFlash.Play();
