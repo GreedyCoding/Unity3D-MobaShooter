@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class SettingsController : MonoBehaviour {
 
+
+    private string volumeInputText;
+
     //Reference to the Audio Mixer
     public AudioMixer audioMixer;
 
@@ -15,6 +18,7 @@ public class SettingsController : MonoBehaviour {
 
     //Reference to the Settings Sliders
     public Slider volumeSlider;
+    public Slider sensitivitySlider;
 
     //Reference to the Settings Dropdowns
     public Dropdown resolutionDropdown;
@@ -63,40 +67,83 @@ public class SettingsController : MonoBehaviour {
         resolutionDropdown.RefreshShownValue();
 
     //VolumeStuff
-        volumeSlider.value = volumeSlider.maxValue;
+
+        //Set Volume to the saved value, if there is no saved value it gets set to max value
+        volumeSlider.value = PlayerPrefs.GetFloat("VolumeSetting", volumeSlider.maxValue);
+        //Adding a listener to the Volumeslider which calls SetVolume if the value of the slider is changed
         volumeSlider.onValueChanged.AddListener(delegate { SetVolume(volumeSlider.value); });
-     
-      
+        //Setting the text of the input field to the current value
+        volumeInputField.text = volumeSlider.value.ToString();
+        //Adding a listener to the Volumeinputfield which calls Setvolume
+        volumeInputField.onValueChanged.AddListener(delegate { SetVolume(StringToFloat(volumeInputField.text)); });
+       
     //Sensitivity Stuff
-        
+
+        //Set Sensitivity to the saved Value, if there is no saved value it gets set to max value
+        sensitivitySlider.value = PlayerPrefs.GetFloat("SensitivitySetting", sensitivitySlider.maxValue);
+        //And set the mouseSensitivity to the value of the slider
+        PlayerController.mouseSensitivity = sensitivitySlider.value;
+        //Adding a listener to the Sensitivityslider which calls SetSensitivity if the value of the slider is changed
+        sensitivitySlider.onValueChanged.AddListener(delegate { SetSensitivity(sensitivitySlider.value); });
+        //Setting the text of the input field to the current value
+        sensitivityInputField.text = sensitivitySlider.value.ToString();
+        //Adding a listener to the Sensitivityinputfield which calls SetSensitivity
+        sensitivityInputField.onValueChanged.AddListener(delegate { SetSensitivity(StringToFloat(sensitivityInputField.text)); });
 
     }
 
-    public void SetVolume(float volume) {
+    private void SetVolume(float volume) {
 
-        float mixerVolume = ReturnMixerValue(volume);
-        audioMixer.SetFloat("volume", mixerVolume);
+        //Set the float "volume" from the AudioMixer to the corrected volume value calculatedd by ReturnMixerValue()
+        audioMixer.SetFloat("volume", ReturnMixerValue(volume));
+        //Change the text of the input field to disply the current setting
         volumeInputField.text = volumeSlider.value.ToString();
+        //Save the current volume to the Playerpreferences
+        PlayerPrefs.SetFloat("VolumeSetting", volume);
 
     }
 
     private static float ReturnMixerValue(float value) {
 
-        //Remapping the Range of the slider(0-100) to the range of the mixer(-80-0) by doing the following calculation
-        //return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+        //Remapping the Range of the slider(0-100) to the range of the mixer(-80-0) by doing the following 
+        //calculation (value - from1) / (to1 - from1) * (to2 - from2) + from2;
         return (value - 0) / (100 - 0) * (0 - -80) + -80;
+
     }
 
+    private void SetSensitivity(float sensitivity) {
+
+        //Setting mouseSens of the Playercontroller to the input sensitivity
+        PlayerController.mouseSensitivity = sensitivity;
+        //and changin the text of the input field to represent the value
+        sensitivityInputField.text = sensitivitySlider.value.ToString();
+        //Save the current sensitivity to the Playerpreferences
+        PlayerPrefs.SetFloat("SensitivitySetting", sensitivity);
+    }
 
     public void SetQuality(int qualityIndex) {
 
+        //Setting the quality of the game to the input qualityIndex from qualityDropdown in the Settings UI
         QualitySettings.SetQualityLevel(qualityIndex);
 
     }
 
     public void SetFullscreen(bool isFullscreen) {
 
+        //Setting the game fullscreen or windowed according to a toggle in the SettingsUI
         Screen.fullScreen = isFullscreen;
+
+    }
+    
+    private float StringToFloat(string inputString) {
+
+        float output;
+
+        if(float.TryParse(inputString, out output)) {
+            return output;
+        } else {
+            return 0f;
+        }
 
     }
 

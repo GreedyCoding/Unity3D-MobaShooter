@@ -95,9 +95,6 @@ public class Gun : MonoBehaviour {
         Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit);
         //Facing the Firepoint to the impact point beacuse we add a force pointing forward
         firePoint.transform.LookAt(hit.point);
-        Debug.Log(firePoint.transform.rotation.x);
-        Debug.Log(firePoint.transform.rotation.y);
-        Debug.Log(firePoint.transform.rotation.z);
 
         //Play the muzzleFlash animation
         muzzleFlash.Play();

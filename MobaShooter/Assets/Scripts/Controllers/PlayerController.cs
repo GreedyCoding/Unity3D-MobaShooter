@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
     private float jumpHeight = 5f;
 
     [SerializeField][Range(0.01f, 15f)]
-    private float mouseSensitivity = 5f;
+    public static float mouseSensitivity = 5f;
 
     //Setting a reference to the PlayerMotor
     private PlayerMotor motor;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour {
 
@@ -68,6 +69,12 @@ public class UIController : MonoBehaviour {
         //No need to change timescale or the pause state bool because this still happens in the pause menu
         //As the Menu gets closed the timescale and pause state get set 
 
+    }
+
+    public void ReloadScene() {
+
+        SceneManager.LoadScene(0);
+        
     }
 
     public void QuitGame() {
