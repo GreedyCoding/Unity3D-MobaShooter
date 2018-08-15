@@ -73,6 +73,7 @@ public class UIController : MonoBehaviour {
 
     public void ReloadScene() {
 
+        //Load the current Scene again
         SceneManager.LoadScene(0);
         
     }
