@@ -15,14 +15,11 @@ public class UIController : MonoBehaviour {
     public TextMeshProUGUI ammoText;
 
     //References to the UI Elemets
-    public GameObject ingameUI;
+    public GameObject crosshairUI;
+    public GameObject playerInfoUI;
     public GameObject pauseMenuUI;
     public GameObject settingsMenuUI;
 
-    void Start() {
-        
-        
-    }
 
     void Update () {
 
@@ -53,7 +50,9 @@ public class UIController : MonoBehaviour {
         Time.timeScale = 0;
         //Set the according UI elements to active or inactive
         pauseMenuUI.SetActive(true);
-        ingameUI.SetActive(false);
+        settingsMenuUI.SetActive(false);
+        crosshairUI.SetActive(false);
+        playerInfoUI.SetActive(false);
         //Set the bool according to the pause state
         gameIsPaused = true;
 
@@ -66,7 +65,8 @@ public class UIController : MonoBehaviour {
         //Set the according UI elements to active or inactive
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
-        ingameUI.SetActive(true);
+        crosshairUI.SetActive(true);
+        playerInfoUI.SetActive(true);
         //Set the bool according to the pause state
         gameIsPaused = false;
 
@@ -76,8 +76,9 @@ public class UIController : MonoBehaviour {
 
         //Set the according UI elements to active or inactive
         pauseMenuUI.SetActive(false);
-        ingameUI.SetActive(false);
         settingsMenuUI.SetActive(true);
+        crosshairUI.SetActive(false);
+        playerInfoUI.SetActive(false);
         //No need to change timescale or the pause state bool because this still happens in the pause menu
         //As the Menu gets closed the timescale and pause state get set 
 
@@ -87,7 +88,8 @@ public class UIController : MonoBehaviour {
 
         //Load the current Scene again
         SceneManager.LoadScene(0);
-        
+        Time.timeScale = 1;
+
     }
 
     public void QuitGame() {

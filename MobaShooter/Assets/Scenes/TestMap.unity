@@ -3420,7 +3420,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 65008383}
   ammoText: {fileID: 1498718448}
-  ingameUI: {fileID: 1298154551}
+  crosshairUI: {fileID: 839237085}
+  playerInfoUI: {fileID: 960635935}
   pauseMenuUI: {fileID: 2051712940}
   settingsMenuUI: {fileID: 1862067591}
 --- !u!1 &731629570
@@ -4242,40 +4243,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 23, y: 23}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &853547040
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 853547041}
-  m_Layer: 5
-  m_Name: _GunUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &853547041
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 853547040}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1498718446}
-  m_Father: {fileID: 1298154552}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0}
 --- !u!1001 &863138583
 Prefab:
   m_ObjectHideFlags: 0
@@ -4701,7 +4668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 960635936}
   m_Layer: 5
-  m_Name: _HealthUI
+  m_Name: _PlayerInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4718,6 +4685,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 65008381}
+  - {fileID: 1498718446}
   m_Father: {fileID: 1298154552}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6201,7 +6169,6 @@ RectTransform:
   m_Children:
   - {fileID: 839237086}
   - {fileID: 960635936}
-  - {fileID: 853547041}
   m_Father: {fileID: 715220236}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7399,12 +7366,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 853547041}
-  m_RootOrder: 0
+  m_Father: {fileID: 960635936}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 248, y: 40}
+  m_AnchoredPosition: {x: -40, y: 40}
   m_SizeDelta: {x: 40, y: 20}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &1498718447
