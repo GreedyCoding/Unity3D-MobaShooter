@@ -88,6 +88,7 @@ public class UIController : MonoBehaviour {
 
         //Load the current Scene again
         SceneManager.LoadScene(0);
+        //And set the timescale back to 1 so the game is not paused anymore
         Time.timeScale = 1;
 
     }
