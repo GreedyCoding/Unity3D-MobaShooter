@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour {
     //Setting a reference to the PlayerMotor
     private PlayerMotor motor;
 
+    [SerializeField]
+    public static float health = 250f;
+
     [SerializeField][Range(1f, 10f)]
     private float moveSpeed = 5f;
 
@@ -15,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField][Range(0.01f, 15f)]
     public static float mouseSensitivity = 5f;
+
 
  // Ability One
     private float nextTimeAbilityOne = 0f;
@@ -27,8 +31,9 @@ public class PlayerController : MonoBehaviour {
     private float abilityTwoCooldown = 2f;
 
  // Ultimate
-    private float pointsNeededForUlt = 3000f;
     public float ultimatePoints = 0f;
+    [SerializeField]
+    private float pointsNeededForUlt = 3000f;
 
     private void Start() {
 
@@ -90,19 +95,36 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(GameManager.GM.abilityOneKey)) {
 
-            CastAbilityOne();
+            if(Time.time >= nextTimeAbilityOne) {
+
+                CastAbilityOne();
+                nextTimeAbilityOne = Time.time + abilityOneCooldown;
+
+            }
 
         }
 
         if (Input.GetKeyDown(GameManager.GM.abilityTwoKey)) {
 
-            CastAbilityTwo();
+            if (Time.time >= nextTimeAbilityTwo) {
+
+                CastAbilityTwo();
+                nextTimeAbilityTwo = Time.time + abilityTwoCooldown;
+
+            }
 
         }
 
         if (Input.GetKeyDown(GameManager.GM.ultimateKey)) {
 
-            CastUltimate();
+            if (ultimatePoints >= pointsNeededForUlt) {
+
+                CastUltimate();
+                ultimatePoints = 0f;
+
+            }
+
+
 
         }
 

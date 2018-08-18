@@ -2,18 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class UIController : MonoBehaviour {
 
     //Using this to store if the game is currently paused
     public static bool gameIsPaused = false;
-    
+
+    //Reference to the textboxes we write the information to
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI ammoText;
+
     //References to the UI Elemets
+    public GameObject ingameUI;
     public GameObject pauseMenuUI;
     public GameObject settingsMenuUI;
-    public GameObject crosshairUI;
-	
-	void Update () {
+
+    void Start() {
+        
+        
+    }
+
+    void Update () {
 
         //Use ESC key to Pause Game
         if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -32,6 +43,8 @@ public class UIController : MonoBehaviour {
 
         }
 
+        RefreshHUDVaules();
+
 	}
         
     public void PauseGame() {
@@ -40,8 +53,7 @@ public class UIController : MonoBehaviour {
         Time.timeScale = 0;
         //Set the according UI elements to active or inactive
         pauseMenuUI.SetActive(true);
-        crosshairUI.SetActive(false);
-        settingsMenuUI.SetActive(false);
+        ingameUI.SetActive(false);
         //Set the bool according to the pause state
         gameIsPaused = true;
 
@@ -53,8 +65,8 @@ public class UIController : MonoBehaviour {
         Time.timeScale = 1;
         //Set the according UI elements to active or inactive
         pauseMenuUI.SetActive(false);
-        crosshairUI.SetActive(true);
         settingsMenuUI.SetActive(false);
+        ingameUI.SetActive(true);
         //Set the bool according to the pause state
         gameIsPaused = false;
 
@@ -64,7 +76,7 @@ public class UIController : MonoBehaviour {
 
         //Set the according UI elements to active or inactive
         pauseMenuUI.SetActive(false);
-        crosshairUI.SetActive(false);
+        ingameUI.SetActive(false);
         settingsMenuUI.SetActive(true);
         //No need to change timescale or the pause state bool because this still happens in the pause menu
         //As the Menu gets closed the timescale and pause state get set 
@@ -84,6 +96,14 @@ public class UIController : MonoBehaviour {
         Application.Quit();
         //Thus logging to the console for now
         Debug.Log("Quitting Application");
+
+    }
+
+    void RefreshHUDVaules() {
+
+        healthText.text = PlayerController.health.ToString();
+        ammoText.text = Gun.currentAmmo.ToString() + "/" + Gun.maxAmmo.ToString();
+
 
     }
 

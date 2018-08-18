@@ -1,10 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Gun : MonoBehaviour {
-
-    public float damage = 10f;
-    public float fireRate = 3f;
-    public float impactForce = 2000f;
 
     //Reference to the player camera for the raycasting
     public Camera fpsCam;
@@ -20,8 +17,14 @@ public class Gun : MonoBehaviour {
 // Gun
     //Stores the time the gun can shoot the next time, 0 so you can instantly shoot
     private float nextTimeToShoot = 0f;
+    public static float currentAmmo = 6;
+    public static float maxAmmo = 6;
+    private float reloadTime = 2f;
+    public float damage = 10f;
+    public float fireRate = 2.5f;
+    public float impactForce = 2000f;
 
- // Rocket
+    // Rocket
     private float nextTimeToRocket = 0f;
     [SerializeField]
     private float rocketCooldown = 2f;
@@ -31,11 +34,13 @@ public class Gun : MonoBehaviour {
     void Update () {
 		
         //If player pressed Mouse Button 1 and its already time to fire again, shoot the gun
-        if (Input.GetKey(GameManager.GM.shootKey) && Time.time >= nextTimeToShoot) {
+        if (Input.GetKey(GameManager.GM.shootKey) && Time.time >= nextTimeToShoot && currentAmmo > 0) {
 
             //Then add the 1/firerate to the current time to calculate the next time to shoot
             nextTimeToShoot = Time.time + (1f / fireRate);
             Shoot();
+            currentAmmo -= 1;
+            Debug.Log(currentAmmo);
 
         }
 
@@ -45,6 +50,12 @@ public class Gun : MonoBehaviour {
             //Add the rocketcooldown to the current time to calculate the next time to fire a rocket
             nextTimeToRocket = Time.time + rocketCooldown;
             ShootRocket();
+
+        }
+
+        if (currentAmmo == 0) {
+
+            StartCoroutine(Reload(reloadTime));
 
         }
 
@@ -100,10 +111,17 @@ public class Gun : MonoBehaviour {
 
         //Play the muzzleFlash animation
         muzzleFlash.Play();
-        //Instantiate a rocket (positoion is still buggy)
+        //Instantiate a rocket
         GameObject rocketGO = Instantiate(rocket, firePoint.position, firePoint.rotation * Quaternion.Euler(rocketOffsetRotation));
         //Call destroy after 10 seconds to clear rockets who may still fly in space
         Destroy(rocketGO, 10f);
+
+    }
+
+    IEnumerator Reload(float _reloadTime) {
+
+        yield return new WaitForSeconds(_reloadTime);
+        currentAmmo = maxAmmo;
 
     }
 
