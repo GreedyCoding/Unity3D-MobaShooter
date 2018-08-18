@@ -4,6 +4,9 @@
 
 public class PlayerController : MonoBehaviour {
 
+    //Setting a reference to the PlayerMotor
+    private PlayerMotor motor;
+
     [SerializeField][Range(1f, 10f)]
     private float moveSpeed = 5f;
 
@@ -13,8 +16,19 @@ public class PlayerController : MonoBehaviour {
     [SerializeField][Range(0.01f, 15f)]
     public static float mouseSensitivity = 5f;
 
-    //Setting a reference to the PlayerMotor
-    private PlayerMotor motor;
+ // Ability One
+    private float nextTimeAbilityOne = 0f;
+    [SerializeField]
+    private float abilityOneCooldown = 2f;
+
+ // Ability Two
+    private float nextTimeAbilityTwo = 0f;
+    [SerializeField]
+    private float abilityTwoCooldown = 2f;
+
+ // Ultimate
+    private float pointsNeededForUlt = 3000f;
+    public float ultimatePoints = 0f;
 
     private void Start() {
 
@@ -67,12 +81,48 @@ public class PlayerController : MonoBehaviour {
         //Let the motor rotate the camera by the calculated rotation
         motor.RotateCamera(_cameraRotation);
 
-        if (Input.GetButtonDown("Jump")) {
+        if (Input.GetKeyDown(GameManager.GM.jumpKey)) {
 
             //Let the playermotor jump when the space key is pressed
             motor.Jump(_jumpVelocity);
 
         }
+
+        if (Input.GetKeyDown(GameManager.GM.abilityOneKey)) {
+
+            CastAbilityOne();
+
+        }
+
+        if (Input.GetKeyDown(GameManager.GM.abilityTwoKey)) {
+
+            CastAbilityTwo();
+
+        }
+
+        if (Input.GetKeyDown(GameManager.GM.ultimateKey)) {
+
+            CastUltimate();
+
+        }
+
+    }
+
+    void CastAbilityOne() {
+
+        Debug.Log("Casting Ability 1");
+
+    }
+
+    void CastAbilityTwo() {
+
+        Debug.Log("Casting Ability 2");
+
+    }
+
+    void CastUltimate() {
+
+        Debug.Log("Casting Ultimate");
 
     }
 

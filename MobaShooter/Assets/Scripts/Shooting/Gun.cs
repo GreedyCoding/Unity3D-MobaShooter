@@ -17,21 +17,21 @@ public class Gun : MonoBehaviour {
     //Reference to the firepoint
     public Transform firePoint;
 
+// Gun
     //Stores the time the gun can shoot the next time, 0 so you can instantly shoot
     private float nextTimeToShoot = 0f;
 
-    //Next time to shoot a rocket
+ // Rocket
     private float nextTimeToRocket = 0f;
-    //Rocket Cooldown
-    public float rocketCooldown = 6f;
+    [SerializeField]
+    private float rocketCooldown = 2f;
     //Rocket Prefab is rotated around the x axis we rotate it by this value so it is facing away from the player
     private Vector3 rocketOffsetRotation = new Vector3(90f, 0f, 0f);
-
 
     void Update () {
 		
         //If player pressed Mouse Button 1 and its already time to fire again, shoot the gun
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToShoot) {
+        if (Input.GetKey(GameManager.GM.shootKey) && Time.time >= nextTimeToShoot) {
 
             //Then add the 1/firerate to the current time to calculate the next time to shoot
             nextTimeToShoot = Time.time + (1f / fireRate);
@@ -40,13 +40,15 @@ public class Gun : MonoBehaviour {
         }
 
         //If player pressed Mouse Button 2 and its already time to shoot a rocket again, shoot it
-        if (Input.GetButton("Fire2") && Time.time >= nextTimeToRocket) {
+        if (Input.GetKey(GameManager.GM.shootAlternateFireKey) && Time.time >= nextTimeToRocket) {
 
             //Add the rocketcooldown to the current time to calculate the next time to fire a rocket
             nextTimeToRocket = Time.time + rocketCooldown;
             ShootRocket();
 
         }
+
+       
 
 	}
 
