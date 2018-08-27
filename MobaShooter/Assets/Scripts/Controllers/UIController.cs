@@ -20,7 +20,6 @@ public class UIController : MonoBehaviour {
     public GameObject pauseMenuUI;
     public GameObject settingsMenuUI;
 
-
     void Update () {
 
         //Use ESC key to Pause Game
@@ -37,6 +36,18 @@ public class UIController : MonoBehaviour {
                 ResumeGame();
 
             }
+
+        }
+
+        if (Time.timeScale == 0) {
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+        } else {
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 
         }
 
