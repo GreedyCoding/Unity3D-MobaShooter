@@ -35,15 +35,36 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private float pointsNeededForUlt = 3000f;
 
-    private void Start() {
-
+    private void Start()
+    {
         //Get the playermotor component
         motor = GetComponent<PlayerMotor>();
-
     }
 
-    private void Update() {
+    private void FixedUpdate()
+    {
+        //Gets a vector based on the X-Axis input of the mouse
+        float _xRotation = Input.GetAxisRaw("Mouse Y");
+        //Gets a vector based on the Y-Axis input of the mouse
+        float _yRotation = Input.GetAxisRaw("Mouse X");
 
+        //Calculate Horizontal rotation as a Vector3 for turning around
+        //Mulitply the vector by the mouseSensitivity variable to make the turnspeed adjustable
+        Vector3 _rotation = new Vector3(0f, _yRotation, 0f) * mouseSensitivity;
+
+        //Let the motor rotate the player by the calculated rotation
+        motor.RotatePlayer(_rotation);
+
+        //Calculate vertical rotation as a Vector3 for turning the camera up and down
+        //Mulitply the vector by the mouseSensitivity variable to make the turnspeed adjustable
+        Vector3 _cameraRotation = new Vector3(_xRotation, 0f, 0f) * mouseSensitivity;
+
+        //Let the motor rotate the camera by the calculated rotation
+        motor.RotateCamera(_cameraRotation);
+    }
+
+    private void Update()
+    {
     //Calculate movement velocity as Vector3
 
         //Gets a vetcor based on the input(Keyboard and Controller)
@@ -53,10 +74,6 @@ public class PlayerController : MonoBehaviour {
         // D-RIGHT ( 0, 0,-1)
         float _xMovement = Input.GetAxisRaw("Horizontal");
         float _zMovement = Input.GetAxisRaw("Vertical");
-        //Gets a vector based on the X-Axis input of the mouse
-        float _xRotation = Input.GetAxisRaw("Mouse Y");
-        //Gets a vector based on the Y-Axis input of the mouse
-        float _yRotation = Input.GetAxisRaw("Mouse X");
 
         //transform.right/forward takes the current rotation into consideration
         Vector3 _moveHorizontal = transform.right * _xMovement;
@@ -72,25 +89,10 @@ public class PlayerController : MonoBehaviour {
         //Let the Motor move with the calculated velocity
         motor.Move(_moveVelocity);
 
-        //Calculate Horizontal rotation as a Vector3 for turning around
-        //Mulitply the vector by the mouseSensitivity variable to make the turnspeed adjustable
-        Vector3 _rotation = new Vector3(0f, _yRotation, 0f) * mouseSensitivity;
-
-        //Let the motor rotate the player by the calculated rotation
-        motor.RotatePlayer(_rotation);
-
-        //Calculate vertical rotation as a Vector3 for turning the camera up and down
-        //Mulitply the vector by the mouseSensitivity variable to make the turnspeed adjustable
-        Vector3 _cameraRotation = new Vector3(_xRotation, 0f, 0f) * mouseSensitivity;
-
-        //Let the motor rotate the camera by the calculated rotation
-        motor.RotateCamera(_cameraRotation);
-
-        if (Input.GetKeyDown(GameManager.GM.jumpKey)) {
-
+        if (Input.GetKeyDown(GameManager.GM.jumpKey))
+        {
             //Let the playermotor jump when the space key is pressed
             motor.Jump(_jumpVelocity);
-
         }
 
         if (Input.GetKeyDown(GameManager.GM.abilityOneKey)) {
