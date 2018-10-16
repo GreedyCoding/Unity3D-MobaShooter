@@ -7,11 +7,20 @@ public class HeroOneAbilityController : AbilityController {
     private float blinkDistance = 10f;
 
     //Blink
-    public override void AbilityOne()
+    public override void AbilityOne(float xMovement, float zMovement)
     {
+        float previousY = transform.position.y;
         RaycastHit hit;
+        Vector3 destination;
         //Destination we want to hit if we are not intersecting anything
-        Vector3 destination = transform.position + transform.forward * blinkDistance;
+        if (zMovement < 0)
+        {
+            destination = transform.position + -transform.forward * blinkDistance;
+        }
+        else
+        {
+            destination = transform.position + transform.forward * blinkDistance;
+        }
 
         //Casting a linecast ray to the destination to check if we are intersecting anything
         if (Physics.Linecast(transform.position, destination, out hit))
@@ -23,7 +32,7 @@ public class HeroOneAbilityController : AbilityController {
         if (Physics.Raycast(destination, -Vector3.up, out hit))
         {
             destination = hit.point;
-            destination.y = 1f;
+            destination.y = previousY;
             transform.position = destination;
         }
 

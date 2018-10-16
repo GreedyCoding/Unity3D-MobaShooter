@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AbilityController : MonoBehaviour
 {
-    public virtual void AbilityOne()
+    public virtual void AbilityOne(float xMovement, float zMovement)
     {
 
     }

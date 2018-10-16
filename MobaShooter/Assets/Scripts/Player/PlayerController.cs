@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour {
 
     public static float health = 250f;
 
-
+    float xMovement;
+    float zMovement;
 
     // Ability One
     private float nextTimeAbilityOne = 0f;
@@ -73,12 +74,12 @@ public class PlayerController : MonoBehaviour {
         // S-DOWN  (-1, 0, 0)
         // A-LEFT  ( 0, 0, 1)
         // D-RIGHT ( 0, 0,-1)
-        float _xMovement = Input.GetAxisRaw("Horizontal");
-        float _zMovement = Input.GetAxisRaw("Vertical");
+        xMovement = Input.GetAxisRaw("Horizontal");
+        zMovement = Input.GetAxisRaw("Vertical");
 
         //transform.right/forward takes the current rotation into consideration
-        Vector3 _moveHorizontal = transform.right * _xMovement;
-        Vector3 _moveVertical = transform.forward * _zMovement;
+        Vector3 _moveHorizontal = transform.right * xMovement;
+        Vector3 _moveVertical = transform.forward * zMovement;
 
         //Calcualte Vector for jumping (pointing up) multiplied by the jumpVelocity
         Vector3 _jumpVelocity = Vector3.up * jumpHeight;
@@ -127,8 +128,7 @@ public class PlayerController : MonoBehaviour {
 
     void CastAbilityOne()
     {
-        abilityController.AbilityOne();
-        Debug.Log("Casting Ability 1");
+        abilityController.AbilityOne(xMovement, zMovement);
     }
 
     void CastAbilityTwo()
