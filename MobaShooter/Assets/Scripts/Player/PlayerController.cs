@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour {
 
     void CastAbilityTwo()
     {
-        Debug.Log("Casting Ability 2");
+        abilityController.AbilityTwo();
     }
 
     void CastUltimate()

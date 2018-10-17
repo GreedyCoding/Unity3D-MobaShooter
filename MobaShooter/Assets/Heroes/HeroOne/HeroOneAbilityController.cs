@@ -4,9 +4,38 @@ using UnityEngine;
 
 public class HeroOneAbilityController : AbilityController {
 
-    private float blinkDistance = 10f;
+    PlayerController playerController;
+    Rigidbody rb;
+
+    List<PointInTime> pointsInTime;
 
     //Blink
+    float blinkDistance = 10f;
+
+    //Recall
+    public bool isRewinding;
+    float recallTime = 3f;
+
+    public void Start()
+    {
+        pointsInTime = new List<PointInTime>();
+        playerController = GetComponent<PlayerController>();
+        rb = GetComponent<Rigidbody>();
+    }
+
+    public void FixedUpdate()
+    {
+        if (pointsInTime.Count > Mathf.Round(recallTime / Time.fixedDeltaTime))
+        { 
+            pointsInTime.RemoveAt(pointsInTime.Count - 1);
+        }
+
+        Debug.Log(pointsInTime.Count);
+
+        pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+    }
+
+    //Blink Ability
     public override void AbilityOne(float xMovement, float zMovement)
     {
         float previousY = transform.position.y;
@@ -38,8 +67,21 @@ public class HeroOneAbilityController : AbilityController {
 
     }
 
-    //Recall
+    //Recall Ability
+    public override void AbilityTwo()
+    {
+        for (int i = 0; i < 180; i++)
+        {
+            transform.position = pointsInTime[0].position;
+            transform.rotation = pointsInTime[0].rotation;
+            pointsInTime.RemoveAt(0);
+        }
+    }
 
+    //Bomb Ultimate
+    public override void Ultimate()
+    {
 
-    //Bomb
+    }
+
 }
