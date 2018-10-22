@@ -17,24 +17,26 @@ public class HeroTwoAbilityController : AbilityController {
     //Sprint Ability
     public override void AbilityOne(float xMovement, float zMovement)
     {
-        if (sprintTime == maxSprintTime)
-        {
-            playerController.moveSpeed = 7f;
-        }
-        sprintTime -= Time.deltaTime;
-
+        playerController.moveSpeed = 7f;
+        StartCoroutine("StopSprinting");
     }
 
-    //Recall Ability
+    //Heal Ability
     public override void AbilityTwo()
     {
 
     }
 
-    //Bomb Ultimate
+    //AutoAim Ultimate
     public override void Ultimate()
     {
 
+    }
+
+    IEnumerator StopSprinting()
+    {
+        yield return new WaitForSeconds(3f);
+        playerController.moveSpeed = 5f;
     }
 
 }
