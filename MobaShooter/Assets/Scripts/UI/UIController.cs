@@ -116,7 +116,7 @@ public class UIController : MonoBehaviour {
     void RefreshHUDVaules() {
 
         healthText.text = PlayerController.health.ToString();
-        ammoText.text = Gun.currentAmmo.ToString() + "/" + Gun.maxAmmo.ToString();
+        ammoText.text = HeroOneGun.currentAmmo.ToString() + "/" + HeroOneGun.maxAmmo.ToString();
 
 
     }

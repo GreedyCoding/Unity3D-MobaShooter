@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private AbilityController abilityController;
 
-    [SerializeField][Range(1f, 10f)]
-    private float moveSpeed = 5f;
+    [Range(1f, 10f)]
+    public float moveSpeed = 5f;
 
     [SerializeField][Range(1f, 10f)]
     private float jumpHeight = 5f;
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     float xMovement;
     float zMovement;
+    Vector3 jumpVelocity;
 
     // Ability One
     private float nextTimeAbilityOne = 0f;
@@ -67,8 +68,12 @@ public class PlayerController : MonoBehaviour {
 
     private void Update()
     {
-    //Calculate movement velocity as Vector3
+        HandleMovementInput();
+        HandleKeyInput();
+    }
 
+    void HandleMovementInput()
+    {
         //Gets a vetcor based on the input(Keyboard and Controller)
         // W-UP    ( 1, 0, 0)
         // S-DOWN  (-1, 0, 0)
@@ -82,7 +87,7 @@ public class PlayerController : MonoBehaviour {
         Vector3 _moveVertical = transform.forward * zMovement;
 
         //Calcualte Vector for jumping (pointing up) multiplied by the jumpVelocity
-        Vector3 _jumpVelocity = Vector3.up * jumpHeight;
+        jumpVelocity = Vector3.up * jumpHeight;
 
         //Adding both movement axis together and normalizing them so they only serve for direction
         //Multiplying the direction by the speed to control the movespeed
@@ -90,16 +95,20 @@ public class PlayerController : MonoBehaviour {
 
         //Let the Motor move with the calculated velocity
         motor.Move(_moveVelocity);
+    }
 
+    void HandleKeyInput()
+    {
         if (Input.GetKeyDown(GameManager.GM.jumpKey))
         {
+            Debug.Log("jump");
             //Let the playermotor jump when the space key is pressed
-            motor.Jump(_jumpVelocity);
+            motor.Jump(jumpVelocity);
         }
 
         if (Input.GetKeyDown(GameManager.GM.abilityOneKey))
         {
-            if(Time.time >= nextTimeAbilityOne)
+            if (Time.time >= nextTimeAbilityOne)
             {
                 CastAbilityOne();
                 nextTimeAbilityOne = Time.time + abilityOneCooldown;
@@ -123,8 +132,8 @@ public class PlayerController : MonoBehaviour {
                 ultimatePoints = 0f;
             }
         }
-
     }
+
 
     void CastAbilityOne()
     {

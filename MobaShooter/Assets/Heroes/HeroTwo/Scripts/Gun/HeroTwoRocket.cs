@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rocket : MonoBehaviour {
+public class HeroTwoRocket : MonoBehaviour {
 
     //Reference to the explosionEffect that gets created
     public GameObject explosionEffect;
@@ -15,36 +15,33 @@ public class Rocket : MonoBehaviour {
     //Setting up a rigidbody variable to store the rigidbody of the rocket
     Rigidbody rb;
 
-    private void Start() {
-
+    private void Start()
+    {
         //Getting the Rigidbody when the Rocket is created
         rb = GetComponent<Rigidbody>();
-
     }
 
     //Every physics iteration we add a force to the rocket
-    private void FixedUpdate() {
-
+    private void FixedUpdate()
+    {
         //Using transform.up Vector for the calculation because the object is rotated around the X axis
         rb.AddForce(transform.up.normalized * speed, ForceMode.VelocityChange);
-        
     }
 
 
     //Checks for collision, is a Unity function
-    private void OnCollisionEnter(Collision collision) {
-
-        if (collision.gameObject.name != "Player") {
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag != "Player")
+        {
             //If the rocket collides with something we let the rocket explode
             ExplodeRocket();
-
         }
 
     }
 
-    private void ExplodeRocket() {
-
+    private void ExplodeRocket()
+    {
         //Instantiate an effect for the explosion the the current position and rotation
         GameObject explosionGO = Instantiate(explosionEffect, transform.position, transform.rotation);
 
@@ -53,20 +50,19 @@ public class Rocket : MonoBehaviour {
         Collider[] colliders = Physics.OverlapSphere(transform.position, impactArea);
 
         //Loop through all the objects in the colliders array
-        foreach(Collider nearbyObject in colliders) {
-
+        foreach(Collider nearbyObject in colliders)
+        {
             //Get rigidbody of the nearbyObject
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
 
             //If the nearbyObject we collided with has a rigidbody
-            if (rb != null ) {
-
+            if (rb != null )
+            {
                 //And its is not the Player
-                if(rb.name != "Player") {
-
+                if(rb.name != "Player")
+                {
                     //Add an explosionforce 
                     rb.AddExplosionForce(impactForce, transform.position, impactArea, 0f, ForceMode.Acceleration);
-
                 }
 
             }
@@ -75,14 +71,12 @@ public class Rocket : MonoBehaviour {
             Target target = nearbyObject.GetComponent<Target>();
 
             //If the target has a target component
-            if (target != null) {
-
+            if (target != null)
+            {
                 //Call TakeDamage on the target component;
                 target.TakeDamage(damage);
 
             }
-
-
         }
 
         //After we have done everything we destroy the rocket and the explosion effect
